@@ -64,10 +64,10 @@
 		                     <%while(rs.next())
 		                     { %>
 		                     <tr>
-		    			<td><input type="checkbox" name="selected" value='<%= rs.getString("domain_name") %>'/></td>
-			    		<td><input type="text" disabled="true" id="<%=rs.getString("domain_name")%>" value="<%=rs.getString("domain_name")%>"/></td>
-			    		<td><input type="button" onclick="fun1(this,'<%=rs.getString("domain_name")%>')" value="EDIT"/></td>
-			    	</tr>
+				    			<td><input type="checkbox" name="selected" value='<%= rs.getString("domain_name") %>'/></td>
+					    		<td><input type="text" disabled="true" id="<%=rs.getString("domain_name")%>" value="<%=rs.getString("domain_name")%>"/></td>
+					    		<td><input type="button" onclick="fun1(this,'<%=rs.getString("domain_name")%>')" value="EDIT"/></td>
+  					    	 </tr>
 		                     
 		                     <%}%>
 		                 </tbody>

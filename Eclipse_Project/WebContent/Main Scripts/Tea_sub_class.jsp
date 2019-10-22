@@ -84,14 +84,14 @@ try{
 try{
     connection = DriverManager.getConnection(connectionUrl+database, userid, password);
     statement=connection.createStatement();
-    String sql = "select name from teachers where dept=(select dept from class where year='"+year+"'and division='"+div+"')";
+    String sql = "select id,name from teachers where dept=(select dept from class where year='"+year+"'and division='"+div+"')";
     System.out.println(year+" "+div);
 
     resultSet = statement.executeQuery(sql);
     while(resultSet.next()){
     String t_name = teacher =resultSet.getString("name");
 %>
-  <option value="<%= t_name %>"><%=t_name %></option>    
+  <option value="<%= resultSet.getInt("id") %>"><%=t_name %></option>    
 <%
   }
     connection.close();
@@ -108,13 +108,13 @@ try{
 try{
     connection = DriverManager.getConnection(connectionUrl+database, userid, password);
     statement=connection.createStatement();
-    String sql = "select subject_name from subject where dept_id=(select dept from class where year='"+year+"'and division='"+div+"') and yr='"+year+"'";
+    String sql = "select subject_id,subject_name from subject where dept_id=(select dept from class where year='"+year+"'and division='"+div+"') and yr='"+year+"'";
 
     resultSet = statement.executeQuery(sql);
     while(resultSet.next()){
     String t_name = subject =resultSet.getString("subject_name");
 %>
-  <option value="<%= t_name %>"><%=t_name %></option>    
+  <option value="<%= resultSet.getString("subject_id") %>"><%=t_name %></option>    
 <%
   }
     connection.close();
@@ -132,16 +132,10 @@ try{
     statement=connection.createStatement();
     String s = request.getParameter("add");
     String sql=null;
-    String year1=request.getParameter("select_year"),div1=request.getParameter("select_div"),teacher1=request.getParameter("select_teacher"),subject1=request.getParameter("select_subject");
+    String year1=request.getParameter("select_year"),div1=request.getParameter("select_div"),tid=request.getParameter("select_teacher"),sid=request.getParameter("select_subject");
     if(s!=null)
     {
-        ResultSet rs = statement.executeQuery("select id from teachers where name = '"+teacher1+"'");
-        rs.next();
-        int tid = rs.getInt(1),sid;
-        rs = statement.executeQuery("select subject_id from subject where subject_name = '"+subject1+"'");
-        rs.next();
-        sid = rs.getInt(1);
-        sql = "insert into teacher_class_subject values('"+tid+"','"+year1+"','"+div1+"','"+sid+"')";
+        sql = "insert into teacher_class_subject values(null,'"+tid+"','"+year1+"','"+div1+"','"+sid+"')";
         statement.executeUpdate(sql);
     }
     connection.close();
@@ -189,9 +183,9 @@ try{
 <%
   }
     connection.close();
-    }catch (Exception e) {
+    }catch (Exception e){
     e.printStackTrace();
-    }
+  }
 %>
 </table>
 </div>

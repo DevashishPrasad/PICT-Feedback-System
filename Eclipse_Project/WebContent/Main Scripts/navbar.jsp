@@ -94,7 +94,7 @@
 		      		<li class="theli"><a href="Tea_sub_class.jsp"><i class="ft-box"></i><span class="menu-title" data-i18n="">Teacher Class</span></a><li>		  
 		      </ul>
           </li>
-          <li class="theli"><a href="typography.html"><i class="ft-bold"></i><span class="menu-title" data-i18n="">Typography</span></a>
+          <li class="theli"><a href="generate report.jsp"><i class="ft-bold"></i><span class="menu-title" data-i18n="">Feedback Report</span></a>
           </li>
         </ul>
       </div>
