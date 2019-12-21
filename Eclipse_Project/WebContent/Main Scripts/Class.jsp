@@ -1,6 +1,6 @@
-<%@page import="jclass.*" %>
 <%@page import="java.sql.*"%>
 <%@page import="javax.sql.*"%>
+<%@page import="jclass.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <script>
@@ -26,17 +26,18 @@
          <br>
          <br>
 </center>
-          <center><label>Division :&nbsp;</label><input id="div" type="text" placeholder="Division" name="div"></input><br><br></center>
+          <center><label>Division :&nbsp;</label><input id="div" type="number" placeholder="Division" name="div" min="1" max="12"></input><br><br></center>
 <center><label>Dept :&nbsp;</label><select name="dept">
 									<option value=""></option>
-									<option value="CS">C.S.</option>
+									 <option value="CS">C.S.</option>
           							<option value="IT">I.T.</option>
           							<option value="EnTC">ENTC</option>
 									<option value="AS">A.S.</option>
 
 </select><br><br></center>
-<center><label>RANGE :&nbsp;</label><input id="range1" type="text" placeholder="RANGE OF STUDENTS" name="ran1"></input>&nbsp;TO <input id="range2" type="text" placeholder="RANGE OF STUDENTS" name="ran2"></input><br><br></center>
+<center><label>RANGE :&nbsp;</label><input id="range1" type="number" placeholder="RANGE OF STUDENTS" name="ran1" min="1"></input>&nbsp;TO <input id="range2" type="number" placeholder="RANGE OF STUDENTS" name="ran2" min="1"></input><br><br></center>
 <center><input type="submit" name="ADD1" value="ADD"></input></center>
+
 </form>
 
 <%
@@ -59,34 +60,60 @@ d=(String)request.getParameter("DELETE1");
 Statement st1 = con.createStatement();
 Statement st2 = con.createStatement();
 ResultSet rs1;
-if((year !="") && (division !=null) && (dept !="") && (range1 !=null) && (s!=null))
+if(request.getParameter("error")!=null)
 {
-	st1.executeUpdate("insert into class values('"+year+"',"+division+",'"+dept+"',"+range1+","+range2+")");
-	out.println("CLASS ADDED");
+	%>
+    <p style="color:#FF0000"><%out.print("INVALID INPUT!");%></p>
+    <%	
 }
-else if((year!="")&&(division!=null)&&(dept!="")&&(range1!=null)&&(d!=null))
+try
 {
-	st2.executeUpdate("delete from class where division="+division+";");
-	out.println("CLASS DELETED");
+	if((year !="") && (division !=null) && (dept !="") && ((Integer.parseInt(range1))<(Integer.parseInt(range2))) && (s!=null))
+	{
+		st1.executeUpdate("insert into class values('"+year+"',"+division+",'"+dept+"',"+range1+","+range2+")");
+		out.println("CLASS ADDED");
+		%>
+	    <p style="color:#0000FF"><%out.println("CLASS ADDED");%></p>
+	    <%	          
+	}
+	
+	else if((year!="")&&(division!=null)&&(dept!="")&&(range1!=null)&&(d!=null))
+	{
+		st2.executeUpdate("delete from class where division="+division+";");
+		out.println("CLASS DELETED");
+	}
+	
 }
-else 
+catch(SQLException e)
 {
-	out.println("INVALID INPUTS");
+	%>
+    <p style="color:#FF0000"><%out.print("INVALID INPUT!");%></p>
+    <%	          
 }
+
+
 
 %>
 <br><br>
 <center>
 <form action="#" method=post>
-<input type="submit" name="delete" value="delete">
-<%
-	if(request.getParameter("delete")!=null)
-	{
-		sammdao obj=new sammdao();
-		String[] arr=(String[])request.getParameterValues("selected");
-		obj.classdel(arr);
-	}
-%>
+			<input type="submit" name="delete" value="Delete"/>
+				<%
+					if (request.getParameter("delete") != null) {
+						sammdao obj = new sammdao();
+						
+						String[] arr = (String[]) request.getParameterValues("selected");
+						obj.classdel(arr);
+					}
+				if(request.getParameter("error")!=null)
+				{
+					%>
+					
+					<p>*UPDATE FAILED DUE TO INCONSISTENCY IN DATA</p>
+					<%
+				}
+				%>
+
 <div class="table-responsive">
 <table class="table">
    <tr>

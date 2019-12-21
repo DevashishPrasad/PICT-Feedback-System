@@ -22,6 +22,7 @@ st.executeUpdate("update domain set domain_name='"+name+"'where domain_name='"+o
 response.sendRedirect("/1st_increment_feedback/Main Scripts/add_domain.jsp");
 }
 catch(Exception e){
+	response.sendRedirect("/1st_increment_feedback/Main Scripts/add_domain.jsp?error=1");
 System.out.println(e);
 }
       

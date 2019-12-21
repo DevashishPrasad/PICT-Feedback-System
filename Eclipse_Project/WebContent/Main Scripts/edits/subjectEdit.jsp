@@ -22,6 +22,7 @@ try{
 }
 catch(Exception e){
 	System.out.println(e);
+	response.sendRedirect("/1st_increment_feedback/Main Scripts/subject.jsp?error=the record was not updated");
 }
       
 %>

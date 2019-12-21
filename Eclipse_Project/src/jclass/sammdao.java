@@ -155,8 +155,9 @@ public class sammdao
 				Statement st = con.createStatement();
 				for(int i=0;i<arr.length;i++)
 				{
-					String[] p=arr[i].split("#",-4);
-		     		st.executeUpdate("delete from teacher_class_subject where tid="+p[0]+" and sid="+p[1]+" and cid_year='"+p[2]+"' and cid_div="+p[3]+"");
+					String[] p=arr[i].split("#",-3);
+					
+		     		st.executeUpdate("delete from teacher_class_subject where tid=(select tid from teachers where name='"+p[0]+"') and sid=(select subject_id from subject where subject_name='"+p[1]+"') and cid_year='"+p[2]+"' and cid_div="+p[3]+"");
 			    }
 			}
 			catch(Exception e)

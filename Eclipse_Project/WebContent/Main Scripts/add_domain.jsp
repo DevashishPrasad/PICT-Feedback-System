@@ -8,14 +8,15 @@
 	var title_name = "Domain"
 </script>
 <%@ include file = "navbar.jsp" %>
-        <form method="post" action="#">
+        <form method="post" action="add_domain.jsp">
             <table>
                 <tr>
                     <td>Name :</td>
-                    <td><input type="text" name="name" /></td>
+                    <td><input type="text" name="name" pattern='[A-Za-z\\s]*' /></td>
                 </tr>               
                 <tr>
-                    <td><input type="submit" name = "add_but" value="ADD" /></td>                 
+                    <td><input type="submit" name = "add_but" value="ADD" /></td>       
+                    <input type="hidden" name="error" value="" />          
                 </tr>
             </table>
         </form> 
@@ -32,18 +33,37 @@
 				
 		            String nm = request.getParameter("name");
 		            String b_add = request.getParameter("add_but");
-		            try
-		            {
+		          
 		                Class.forName("com.mysql.jdbc.Driver");
 		                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/feedback_main","Deva","dev123456");
 		          
 		                Statement st = con.createStatement();
 		                int i;
-		                
-		                if(b_add != null)
+		                if(request.getParameter("error")!=null&&request.getParameter("error")!="")
 		                {
-		                    i = st.executeUpdate("insert into domain(domain_name) values ('"+nm+"')");
-		                    out.print("Domain added");
+		                	%>
+		                    <p style="color:#FF0000"><%out.print("INVALID INPUT!");%></p>
+		                    <%	
+		                }
+		                
+		                try{
+		                	
+		                if(b_add != null && nm!="")
+		                {
+		                 
+		                    	i = st.executeUpdate("insert into domain(domain_name) values ('"+nm+"')");
+		                    
+		                    %>
+		                    <p style="color:#0000FF"><%out.print("Domain added");%></p>
+		                    <% 
+		                }
+		                }
+		      
+		                catch(SQLException e)
+		                {
+		                	%>
+		                    <p style="color:#FF0000"><%out.print("INVALID INPUT!");%></p>
+		                    <%	                
 		                }
 		                
 		                Statement st2 = con.createStatement();
@@ -64,10 +84,10 @@
 		                     <%while(rs.next())
 		                     { %>
 		                     <tr>
-				    			<td><input type="checkbox" name="selected" value='<%= rs.getString("domain_name") %>'/></td>
-					    		<td><input type="text" disabled="true" id="<%=rs.getString("domain_name")%>" value="<%=rs.getString("domain_name")%>"/></td>
-					    		<td><input type="button" onclick="fun1(this,'<%=rs.getString("domain_name")%>')" value="EDIT"/></td>
-  					    	 </tr>
+		    			<td><input type="checkbox" name="selected" value='<%= rs.getString("domain_name") %>'/></td>
+			    		<td><input type="text" disabled="true" id="<%=rs.getString("domain_name")%>" value="<%=rs.getString("domain_name")%>"/></td>
+			    		<td><input type="button" onclick="fun1(this,'<%=rs.getString("domain_name")%>')" value="EDIT"/></td>
+			    	</tr>
 		                     
 		                     <%}%>
 		                 </tbody>
@@ -75,14 +95,8 @@
 	             </div>
              </form>
                 <br/>
-                <%
-                con.close();
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-        %>
+               
+             
     <%@ include file = "downbar.jsp" %>
 <script>
 var prev = null

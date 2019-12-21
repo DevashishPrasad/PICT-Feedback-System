@@ -40,28 +40,28 @@
 			nostud = r2-r1;
 			System.out.println("++++++++++++++"+nostud);
         }
+        int total = 0;
 %>
 
 <script src="/1st_increment_feedback/js/jquery.js"></script>
 	
 	<script>
 		function check(){
-			
-			  var pdf = new jsPDF();
+			  window.print()	
+			  /* var pdf = new jsPDF();
 			  pdf.addHTML($("body"), 5, 5, function() {
 			    pdf.save('page.pdf');
-			  });
-			  }
-	</script>
-	<script src="file1.js"></script>
-	<script src="file2.js"></script>		
+			  });*/
+			  } 
+	</script>		
 	
 <body>
+	<center><img src="theme-assets/images/logo/pict.jpg" style="height:120px;"/>
 	<h1>PICT FEEDBACK REPORT</h1>
-	<label> <%= teacher %> </label>
-	<label> <%= year %> <%= div %> </label>
-	<label> <%= subject %> </label>
-	
+	<label>--------------- <b>TEACHER : </b></label><label> <%= teacher %> ---------------</label>
+	<label><b>CLASS : </b></label><label> <%= year %> <%= div %> ---------------</label>
+	<label><b>SUBJECT : </b></label><label> <%= subject %> ---------------</label>
+	</center>
 	<%	
 	  	selectQuery = "select qid,score from feedback where cat_id="+cat_id;
     	rs = st.executeQuery(selectQuery);
@@ -75,14 +75,18 @@
     			qname = rs1.getString("question");
     		
 	%>
-	<h2>Question no <%= i %></h2>
-	<h3><%= qname %></h3>
-	<p>Score : <%= rs.getInt("score")/nostud %></p>	
+	<h4><%= i %>) <%= qname %></h3>
+	<p>Score : <%= rs.getInt("score") %></p>	
 	
-	<%} %>
+	<%
+		total += rs.getInt("score");	
+    	} 
+    %>
 	
-	<h2>Total : </h2>
-	<p>Average Score : </p>
-	
+	<p>(* Each question mark out of : <%= 40*nostud %> )</p>
+	<h2> Total Score : <%= total %>/<%= i*40*nostud %> or <% 
+	out.println((float)((float)total/(float)(i*40*nostud))*100+"%"); 
+	%>
+	</h2>	
 	<button id="cmd" onclick="check()">Download PDF</button>
 </body>

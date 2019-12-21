@@ -1,40 +1,24 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*,java.util.*"%>
 <%@page import="jclass.*"%>
-
-<%  
-    String addbtn = request.getParameter("addclick");
-    String name = request.getParameter("subject");
-    String subid = request.getParameter("subjectID");
-    String domain = request.getParameter("domain");
-    String dept_id = request.getParameter("dept");    
-    String year = request.getParameter("year");
-    ResultSet yr=null;
+<%
         
     Class.forName("com.mysql.jdbc.Driver");
     Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/feedback_main", "Deva", "dev123456");
     Statement st=conn.createStatement();
-     if(addbtn != null)
-     {                 
-         if(name.isEmpty())
-         {
-             %><script>alert("Please Enter the name")</script><%
-         }
-         else
-         {
-            st.executeUpdate("INSERT INTO subject(subject_id,subject_name,domain_name,yr,dept_id) VALUES('"+subid+"','"+name+"','"+domain+"','"+year+"','"+dept_id+"')");
-         }
-     }
+    ResultSet yr=null;
+    
 %>
 <script>
 	var a = 3
 	var title_name = "Subject"
 </script>
 <%@ include file = "navbar.jsp" %>
-        <form action="#" method="POST">
-            <input type="number" id="subid" name="subjectID" placeholder="Enter the Subject ID"><br>
-            <input type="text" id="subname" name="subject" placeholder="Enter the Subject Name"><br>
-            <select id="Area" name="domain">
+        <form action="subject.jsp" method="POST">
+            Subject ID : <input type="number" id="subid" name="subjectID" placeholder="Enter the Subject ID" min="1"><br>
+            Subject Name : <input type="text" id="subname" name="subject" placeholder="Enter the Subject Name" pattern='[A-Za-z\\s]*'><br>
+            <input type="hidden" name="error" value="" />
+            Domain : <select id="Area" name="domain">
 <%  
     try{
         ResultSet result = null;
@@ -48,7 +32,7 @@
    
 %>
             </select><br>
-            <select id="asd" name="dept">
+          Department:  <select id="asd" name="dept">
               <%  
   
         ResultSet result2 = null;
@@ -63,7 +47,7 @@
 %>
             </select>        
             <br>
-<select id="asd" name="year">
+		Year : <select id="asd" name="year">
         <%
       
        yr = st.executeQuery("select distinct year from class");
@@ -78,6 +62,41 @@
              <br>
     <input type="submit" value="ADD" name="addclick">
     </form>
+    <%  
+    String addbtn = request.getParameter("addclick");
+    String name = request.getParameter("subject");
+    String subid = request.getParameter("subjectID");
+    String domain = request.getParameter("domain");
+    String dept_id = request.getParameter("dept");    
+    String year = request.getParameter("year");
+    
+	    if(addbtn != null)
+	    {                 
+	        if(name.isEmpty())
+	        {
+	            %><script>alert("Please Enter the name")</script><%
+	        }
+	        else
+	        {	
+	           
+	        	try
+	        	{
+		        	st.executeUpdate("INSERT INTO subject(subject_id,subject_name,domain_name,yr,dept_id) VALUES('"+subid+"','"+name+"','"+domain+"','"+year+"','"+dept_id+"')");
+					
+					%>
+				    <p style="color:#0000FF"><%out.println("SUBJECT ADDED");%></p>
+				    <%	       
+		        }
+	        	catch(SQLException e)
+	        	{
+	        		%>
+	        	    <p style="color:#FF0000"><%out.print("INVALID INPUT!");%></p>
+	        	    <%	       
+	        	}
+	        }
+	    }
+    %>
+    
     <form action="#" method=post>
 		<input type="submit" name="delete" value="Delete"/>
 			<%
@@ -87,6 +106,16 @@
 					String[] arr = (String[]) request.getParameterValues("selected");
 					obj.subjectdel(arr);
 				}
+			if(request.getParameter("error")!=null&&request.getParameter("error")!="")
+			{
+				%>
+        	    <p style="color:#FF0000"><%out.print("INVALID INPUT!");%></p>
+        	    <%	       
+			}
+			else if(request.getParameter("error")==" ")
+			{
+				out.println("SUBJECT DELETED");
+			}
    			%>
    	
     <div class="table-responsive">

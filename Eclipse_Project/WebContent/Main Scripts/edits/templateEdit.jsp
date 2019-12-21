@@ -24,6 +24,8 @@ response.sendRedirect("/1st_increment_feedback/Main Scripts/template.jsp");
 }
 catch(Exception e){
 System.out.println(e);
+response.sendRedirect("/1st_increment_feedback/Main Scripts/template.jsp?error=1");
+
 }
       
 %>

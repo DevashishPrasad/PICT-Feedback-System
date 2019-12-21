@@ -11,7 +11,7 @@
 <%@ include file = "navbar.jsp" %>
 <form name="form1" action="Teachers.jsp" method="post">
 <center><label>Teacher Name :&nbsp;</label>
-<input id="name" type="text" placeholder="Teacher Name" name="name">
+<input id="name" type="text" placeholder="Teacher Name" name="name" pattern='[A-Za-z\\s]*'>
 </input>
 <br>
 <br>
@@ -51,11 +51,15 @@
 	if((name!=null)&&(dept!="")&&(s!=null) )
 	{
 		int i= st1.executeUpdate("insert into teachers(dept,name) values('"+dept+"','"+name+"')");
-		out.println("TEACHER ADDED");
+		
+		%>
+	    <p style="color:#0000FF"><%out.println("TEACHER ADDED");%></p>
+	    <%	       
 	}
 	else 
 	{
-		out.println("ENTER ALL FIELDS");
+		out.println("PUT VALID INPUTS ONLY");
+	
 	}
 %>
 <br><br>
@@ -67,8 +71,14 @@
 						sammdao obj = new sammdao();
 						
 						String[] arr = (String[]) request.getParameterValues("selected");
-						//obj.t(arr);
+						obj.dell(arr);
 					}
+		if(request.getParameter("error")!=null)
+		{
+			%>
+		    <p style="color:#FF0000"><%out.println("INVALID INPUT");%></p>
+		    <%	
+		}
 		%>
 	<div class="table-responsive">
 	<table class="table">

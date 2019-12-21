@@ -24,9 +24,11 @@
 	Connection con = null;
 	Statement statement = null;
 	ResultSet resultSet = null;
-	int rollno = 33336;
+	int rollno = Integer.parseInt(request.getParameter("uname"));
 	int cat=0,total=0;
 	String teacher_id = request.getParameter("name");
+	String tname = request.getParameter("tname");
+	String sname = request.getParameter("sname");
 	String subject_id = request.getParameter("sub");
 	Class.forName("com.mysql.jdbc.Driver");
 	con = DriverManager.getConnection(connectionUrl+database, userid, password);
@@ -89,13 +91,17 @@
             
             jQuery(document).ready(function(){
             	
+            	if(<%=flag%>)
+           		{
+            		$('#questions').append("<center><h1><%=tname %>_<%=sname %></h1></center>");
+           		}
             	 for(var no = 1; no <= <%=rs.getString("num_ques")%>;no++){ 
             	
               	  $('#questions').append('<div class="question-card"><div class="card"><div class="card-block"><div class="card-body"><div id="ques'+ no +'" class="ques" ></div></div></div></div></div>');
 
             	}
             	
-            	if(<%=flag%>)
+            	if(<%=flag %>)
            		{
             		$('#questions').append('<div style="margin-bottom:100px; margin-left:30%;"><input type="submit" value="submit"/></div>');
             		$('#questions').append('<div style="margin-bottom:100px; margin-left:30%;"><input type="hidden" name="total" value="<%=total%>"/></div>');
@@ -267,7 +273,7 @@
 									    			String subid = rs.getString("sid");
 									    			
 												%>
-													<li class="nav-item"><a href="index.jsp?name=<%=tid%>&sub=<%=subid%>&flag=1" ><i class="ft-home"></i><span class="menu-title" data-i18n=""><%=name %>_<%=sub %></span></a></li>
+													<li class="nav-item"><a href="index.jsp?name=<%=tid%>&sub=<%=subid%>&flag=1&tname=<%=name %>&sname=<%=sub %>&uname=<%=rollno %>" ><i class="ft-home"></i><span class="menu-title" data-i18n=""><%=name %>_<%=sub %></span></a></li>
 												<%} 
 						   					}
 												%>

@@ -137,6 +137,9 @@ try{
     {
         sql = "insert into teacher_class_subject values(null,'"+tid+"','"+year1+"','"+div1+"','"+sid+"')";
         statement.executeUpdate(sql);
+        %>
+	    <p style="color:#0000FF"><%out.println("MAPPING ADDED");%></p>
+	    <% 	
     }
     connection.close();
     }catch (Exception e) {

@@ -21,6 +21,8 @@ st.executeUpdate("update teachers set name='"+name+"',dept='"+dept+"' where id="
 response.sendRedirect("http://localhost:8080/1st_increment_feedback/Main%20Scripts/Teachers.jsp");
 }
 catch(Exception e){
+	response.sendRedirect("http://localhost:8080/1st_increment_feedback/Main%20Scripts/Teachers.jsp?error=1");
+
 System.out.println(e);
 }
       

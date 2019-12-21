@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.*"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>    
@@ -40,11 +40,12 @@
 	var title_name = "Question Template"
 </script>
 <%@ include file = "navbar.jsp" %>
-	<form action="#" method="post">
+	<form action="template.jsp" method="post">
 		<br>
 		<input name="temp_name" type="text" />
 		<br>
 		<input type="submit" name="single" value="Search template"/>
+		<input type="hidden" name="error" value="" />
 		<br>
 		<input type="submit" name="add" value="Add"/>
 	</form>
@@ -70,6 +71,7 @@
 		</thead>
 	
 <%
+		
 	    	try{
 		    		connection = DriverManager.getConnection(connectionUrl+database, userid, password);
 		    		statement=connection.createStatement();
@@ -91,10 +93,33 @@
 				         }
 				         else
 				         {
-				            sql1 = "INSERT INTO template(temp_name) VALUES('"+name+"')";
+				            
+				        	try{
+				        	sql1 = "INSERT INTO template(temp_name) VALUES('"+name+"')";
 				            int res = statement.executeUpdate(sql1);
-				         }
+				            
+				            %>
+						    <p style="color:#0000FF"><%out.println("#TEMPLATE ADDED");%></p>
+						    <%
+				         	}
+				            catch(SQLException e)
+				            {
+				            	%>
+							    <p style="color:#FF0000"><%out.println("INVALID INPUT");%></p>
+							    <% 
+				            }
+				           
+				            }
+				         
 					}
+					if(request.getParameter("error")!=null&&request.getParameter("error")!="")
+					{
+						%>
+					    <p style="color:#FF0000"><%out.println("INVALID INPUT");%></p>
+					    <% 
+					    
+					}
+					
 					if(sql != null){
 						resultSet = statement.executeQuery(sql);
 		    			while(resultSet.next()){

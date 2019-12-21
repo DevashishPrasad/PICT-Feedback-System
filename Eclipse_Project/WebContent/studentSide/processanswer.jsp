@@ -41,4 +41,5 @@ for(int i=0;i < Integer.parseInt(request.getParameter("total"));i++)
 	
 	st.executeUpdate("update feedback set score=score+"+Integer.parseInt(request.getParameter(Integer.toString(i+1)))+"  where cat_id = "+request.getParameter("cat")+" and qid ="+val);
 }
+response.sendRedirect("index.jsp?uname=33319");
 %>
