@@ -12,8 +12,33 @@
 <script>
 	var a = 3
 	var title_name = "Subject"
+
+	function check(){
+		 
+		 filename = $("#file").val();
+			
+		 if(filename.trim().length == 0){
+			 alert('Please Select The File To Upload Teachers Data');
+			 return false;
+		 }else{
+			return true;	 
+		 }
+		
+	}
 </script>
 <%@ include file = "navbar.jsp" %>
+
+	<div style="margin-left: 50%">
+	<form action="subject_upload.jsp" enctype="multipart/form-data"
+		method="post">
+
+		<input name="upload" id="file" type="file" accept=".xls, .xlsx">
+		<br>
+		<br>
+		<button type="submit" onclick="return check()">ADD</button>
+
+	</form>
+</div>
         <form action="subject.jsp" method="POST">
             Subject ID : <input type="number" id="subid" name="subjectID" placeholder="Enter the Subject ID" min="1"><br>
             Subject Name : <input type="text" id="subname" name="subject" placeholder="Enter the Subject Name" pattern='[A-Za-z\\s]*'><br>
