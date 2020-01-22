@@ -7,19 +7,30 @@
 <script>
 	var a = 4
 	var title_name = "Teachers"
+	function check(){
+		 
+		 filename = $("#file").val();
+			
+		 if(filename.trim().length == 0){
+			 alert('Please Select The File To Upload Teachers Data');
+			 return false;
+		 }else{
+			return true;	 
+		 }
+		
+	}
 </script>
 <%@ include file = "navbar.jsp" %>
 <form name="form1" action="Teachers.jsp" method="post">
-<center><label>Teacher Name :&nbsp;</label>
+<div>
+<div>
+<center><label>Teacher Name :&nbsp;</label></center>
 <input id="name" type="text" placeholder="Teacher Name" name="name" pattern='[A-Za-z\\s]*'>
-</input>
 <br>
 <br>
-</center>
-<center>
 	<label>Teacher DEPT :&nbsp;</label>
 		<select name="dept">
-			<option value=""></option>
+			<option value=" " disabled selected>Select department</option>
 			<option value="CS">C.S</option>		
 			<option value="IT">I.T</option>
     		<option value="EnTC">ENTC</option>
@@ -27,10 +38,17 @@
 		</select>
 <br>
 <br>
-</center>
-<center>
 <input type="submit" name="ADD1" value="ADD"></input>
-</center>
+</div>
+
+</div>
+</form>
+<form action="staff_upload.jsp" enctype="multipart/form-data" method="post">
+
+	<input name="upload" id="file" type="file" accept=".xls, .xlsx" >
+	<br><br>
+	<button type="submit" onclick="return check()">ADD</button>
+
 </form>
 
 <%

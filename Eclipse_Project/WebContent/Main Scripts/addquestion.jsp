@@ -34,6 +34,27 @@
 <script>
 	var a = 6
 	var title_name = "Question Template"
+
+	
+	function check(){
+		
+		temp = $("#sel_tem").val();
+		//var filename = document.getElementById("file").value();
+		if(temp == null){
+			alert('Please Select Template First');
+			return false;
+		}
+		
+		 filename = $("#file").val();
+			
+		 if(filename.trim().length == 0){
+			 alert('Please Select The File To Upload Teachers Data');
+			 return false;
+		 }
+		 
+		return true;
+	}
+	
 </script>
 <%@ include file = "navbar.jsp" %>
 	<p style="color:#0000FF"><%= status %></p>
@@ -69,6 +90,18 @@
 	    		connection = DriverManager.getConnection(connectionUrl+database, userid, password);
 	    		statement=connection.createStatement();		
 	 %>
+
+
+	<form action="que_upload.jsp" enctype="multipart/form-data" method="POST">
+		<%
+			session.setAttribute("tempID", temp_name);
+		%>
+		<input name="upload" id="file" type="file" accept=".xls, .xlsx">
+		<br><br>
+		<input type="submit" value="ADD" onclick="return check()">
+	</form>
+	
+
      <form action="processques.jsp" method="post">
 		<p> Currently selected template - <b><%= temp_name %></b></p>
 		<label>Enter the Question</label>
