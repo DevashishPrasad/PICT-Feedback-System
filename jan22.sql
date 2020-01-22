@@ -185,6 +185,7 @@ CREATE TABLE `question` (
   `option3` varchar(50) DEFAULT NULL,
   `option4` varchar(50) DEFAULT NULL,
   `qid` int(11) NOT NULL,
+  `option5` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`qid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -195,7 +196,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES ('Can you hear the teacher','Good','Fair','Bad','Worst',1),('Can you understand teacher','Good','Fair','Bad','Worst',2),('Can you understand teacher','Good','Fair','Bad','Worst',3),('Can you perform well','Good','Fair','Bad','Worst',4);
+INSERT INTO `question` VALUES ('Can you hear the teacher','Good','Fair','Bad','Worst',1,NULL),('Can you understand teacher','Good','Fair','Bad','Worst',2,NULL),('Can you understand teacher','Good','Fair','Bad','Worst',3,NULL),('Can you perform well','Good','Fair','Bad','Worst',4,NULL);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,6 +427,17 @@ LOCK TABLES `template` WRITE;
 INSERT INTO `template` VALUES ('CTL'),('LTL'),('template1');
 /*!40000 ALTER TABLE `template` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-01-22 15:29:49
 
 --
 -- Dumping routines for database 'feedback_main'
@@ -461,4 +473,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-04 22:47:50
+-- Dump completed on 2020-01-22 15:29:49
