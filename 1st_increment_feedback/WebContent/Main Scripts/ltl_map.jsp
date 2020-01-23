@@ -14,7 +14,7 @@ String div = request.getParameter("div");
 int size = 0;
 
 if(request.getParameter("size") != null){
-	if(!request.getParameter("size").isBlank())
+	if(!request.getParameter("size").isEmpty())
 		size = Integer.parseInt(request.getParameter("size"));
 }
 else
