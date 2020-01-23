@@ -24,7 +24,8 @@
 	Connection con = null;
 	Statement statement = null;
 	ResultSet resultSet = null;
-	int rollno = Integer.parseInt(request.getParameter("uname"));
+	//int rollno = Integer.parseInt(request.getParameter("uname"));
+	int rollno = 33319;
 	int cat=0,total=0;
 	String teacher_id = request.getParameter("name");
 	String tname = request.getParameter("tname");
@@ -120,10 +121,10 @@
             	if(no<=<%=rs.getString("num_ques")%>){
             		
             		$('#ques'+no).append('<p>'+no+'. <%=rs2.getString("question")%></p>');
-            		$('#ques'+no).append('<p><input type="radio" value="40" name = "'+no+'"/><%=rs2.getString("option1")%></p>');
-            		$('#ques'+no).append('<p><input type="radio" value="30" name = "'+no+'"/><%=rs2.getString("option2")%></p>');
-            		$('#ques'+no).append('<p><input type="radio" value="20" name = "'+no+'"/><%=rs2.getString("option3")%></p>');
-            		$('#ques'+no).append('<p><input type="radio" value="10" name = "'+no+'"/><%=rs2.getString("option4")%></p>');
+            		$('#ques'+no).append('<input type="radio" value="40" name = "'+no+'"/><%=rs2.getString("option1")%>');
+            		$('#ques'+no).append('<input type="radio" value="30" name = "'+no+'"/><%=rs2.getString("option2")%>');
+            		$('#ques'+no).append('<input type="radio" value="20" name = "'+no+'"/><%=rs2.getString("option3")%>');
+            		$('#ques'+no).append('<input type="radio" value="10" name = "'+no+'"/><%=rs2.getString("option4")%>');
             	}
             	no++;
             		
