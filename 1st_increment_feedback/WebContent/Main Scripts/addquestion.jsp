@@ -34,27 +34,6 @@
 <script>
 	var a = 6
 	var title_name = "Question Template"
-
-	
-	function check(){
-		
-		temp = $("#sel_tem").val();
-		//var filename = document.getElementById("file").value();
-		if(temp == null){
-			alert('Please Select Template First');
-			return false;
-		}
-		
-		 filename = $("#file").val();
-			
-		 if(filename.trim().length == 0){
-			 alert('Please Select The File To Upload Teachers Data');
-			 return false;
-		 }
-		 
-		return true;
-	}
-	
 </script>
 <%@ include file = "navbar.jsp" %>
 	<p style="color:#0000FF"><%= status %></p>
@@ -90,29 +69,19 @@
 	    		connection = DriverManager.getConnection(connectionUrl+database, userid, password);
 	    		statement=connection.createStatement();		
 	 %>
-
-
-	<form action="que_upload.jsp" enctype="multipart/form-data" method="POST">
-		<%
-			session.setAttribute("tempID", temp_name);
-		%>
-		<input name="upload" id="file" type="file" accept=".xls, .xlsx">
-		<br><br>
-		<input type="submit" value="ADD" onclick="return check()">
-	</form>
-	
-
      <form action="processques.jsp" method="post">
 		<p> Currently selected template - <b><%= temp_name %></b></p>
 		<label>Enter the Question</label>
 		<input name="question" type="text" /><br>
-		<label>Option 1 (40 marks)</label>
+		<label>Option 1 (50 marks)</label>
 		<input name="option1" type="text" /><br>
-		<label>Option 2 (30 marks)</label>
+		<label>Option 2 (40 marks)</label>
 		<input name="option2" type="text" /><br>
-		<label>Option 3 (20 marks)</label>
+		<label>Option 3 (30 marks)</label>
 		<input name="option3" type="text" /><br>
-		<label>Option 4 (10 marks)</label>
+		<label>Option 4 (20 marks)</label>
+		<input name="option4" type="text" /><br>
+		<label>Option 5 (10 marks)</label>
 		<input name="option4" type="text" /><br>
 		<input type="hidden" name="temp_name" value="<%= temp_name %>">  
 		<input type="submit" name="single" value="Add Question"/> 
@@ -129,15 +98,16 @@
 		%>
 
 	<div class="table-responsive">
-		<table class="table">
+		<table class="table" style="width:400px;">
 	        <tr>
-	        	<th>Delete</th>
-				<th>Qid</th>
-				<th>question</th> 
-				<th>option1</th>
-				<th>option2</th>
-				<th>option3</th>
-				<th>option4</th>
+	        	<th style="width:20px;">Delete</th>
+				<th style="width:20px;">Qid</th>
+				<th style="width:20px;">question</th> 
+				<th style="width:20px;">option1</th>
+				<th style="width:20px;">option2</th>
+				<th style="width:20px;">option3</th>
+				<th style="width:20px;">option4</th>
+				<th style="width:20px;">option5</th>
 				<th>Edit</th>
 			</tr>
 			<%
@@ -146,14 +116,15 @@
 	         while(resultSet.next()){
 	         %>
 	         <tr>
-		         <td><input type="checkbox" name="selected" value='<%=resultSet.getString("qid")%>'/></td>
-		  		 <td><input type="text" disabled="true" id="<%=i+resultSet.getString("qid")%>" value="<%=resultSet.getString("qid")%>"/></td>
-		  		 <td><input type="text" disabled="true" id="<%=i+resultSet.getString("question")%>" value="<%=resultSet.getString("question")%>"/></td>
-		  		 <td><input type="text" disabled="true" id="<%=i+resultSet.getString("option1")%>" value="<%=resultSet.getString("option1")%>"/></td>
-		  		 <td><input type="text" disabled="true" id="<%=i+resultSet.getString("option2")%>" value="<%=resultSet.getString("option2")%>"/></td>
-		  		 <td><input type="text" disabled="true" id="<%=i+resultSet.getString("option3")%>" value="<%=resultSet.getString("option3")%>"/></td>
-		  		 <td><input type="text" disabled="true" id="<%=i+resultSet.getString("option4")%>" value="<%=resultSet.getString("option4")%>"/></td>
-		  		 <td><input type="button" onclick="fun1(this,'<%=i+resultSet.getString("qid")%>','<%=i+resultSet.getString("question")%>','<%=i+resultSet.getString("option1")%>','<%=i+resultSet.getString("option2")%>','<%=i+resultSet.getString("option3")%>','<%=i+resultSet.getString("option4")%>')" value="EDIT"/></td>
+		         <td><input style="width:20px;" type="checkbox" name="selected" value='<%=resultSet.getString("qid")%>'/></td>
+		  		 <td><input style="width:50px;" type="text" disabled="true" id="<%=i+resultSet.getString("qid")%>" value="<%=resultSet.getString("qid")%>"/></td>
+		  		 <td><input style="width:350px;" type="text" disabled="true" id="<%=i+resultSet.getString("question")%>" value="<%=resultSet.getString("question")%>"/></td>
+		  		 <td><input style="width:80px;" type="text" disabled="true" id="<%=i+resultSet.getString("option1")%>" value="<%=resultSet.getString("option1")%>"/></td>
+		  		 <td><input style="width:80px;" type="text" disabled="true" id="<%=i+resultSet.getString("option2")%>" value="<%=resultSet.getString("option2")%>"/></td>
+		  		 <td><input style="width:80px;" type="text" disabled="true" id="<%=i+resultSet.getString("option3")%>" value="<%=resultSet.getString("option3")%>"/></td>
+		  		 <td><input style="width:80px;" type="text" disabled="true" id="<%=i+resultSet.getString("option4")%>" value="<%=resultSet.getString("option4")%>"/></td>
+		  		 <td><input style="width:80px;" type="text" disabled="true" id="<%=i+resultSet.getString("option5")%>" value="<%=resultSet.getString("option5")%>"/></td>
+		  		 <td><input style="width:80px;" type="button" onclick="fun1(this,'<%=i+resultSet.getString("qid")%>','<%=i+resultSet.getString("question")%>','<%=i+resultSet.getString("option1")%>','<%=i+resultSet.getString("option2")%>','<%=i+resultSet.getString("option3")%>','<%=i+resultSet.getString("option4")%>')" value="EDIT"/></td>
 		  	 </tr>
 			<%
 			i++;

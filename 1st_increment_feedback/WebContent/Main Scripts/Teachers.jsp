@@ -7,24 +7,13 @@
 <script>
 	var a = 4
 	var title_name = "Teachers"
-	function check(){
-		 
-		 filename = $("#file").val();
-			
-		 if(filename.trim().length == 0){
-			 alert('Please Select The File To Upload Teachers Data');
-			 return false;
-		 }else{
-			return true;	 
-		 }
-		
-	}
 </script>
 <%@ include file = "navbar.jsp" %>
+
 <form name="form1" action="Teachers.jsp" method="post">
 <div>
 <div>
-<center><label>Teacher Name :&nbsp;</label></center>
+<label>Teacher Name :&nbsp;</label>
 <input id="name" type="text" placeholder="Teacher Name" name="name" pattern='[A-Za-z\\s]*'>
 <br>
 <br>
@@ -40,14 +29,17 @@
 <br>
 <input type="submit" name="ADD1" value="ADD"></input>
 </div>
+<div style="float:right">
+<label>OR IMPORT FROM EXCEL SHEET</label><br>
 
+</div>
 </div>
 </form>
 <form action="staff_upload.jsp" enctype="multipart/form-data" method="post">
 
 	<input name="upload" id="file" type="file" accept=".xls, .xlsx" >
 	<br><br>
-	<button type="submit" onclick="return check()">ADD</button>
+	<button type="submit">ADD</button>
 
 </form>
 
@@ -81,7 +73,6 @@
 	}
 %>
 <br><br>
-<center>
 	<form action="#" method=post>
 		<input type="submit" name="delete" value="Delete"/>
 		<%
@@ -98,6 +89,7 @@
 		    <%	
 		}
 		%>
+
 	<div class="table-responsive">
 	<table class="table">
 
@@ -117,17 +109,20 @@ while(rs2.next())
 {
 %>
 	<tr>
-		<td><input type="checkbox" name="selected" value='<%=rs2.getInt(1)%>'/></td>
-   		<td><input type="text" disabled="true" id="<%=i+rs2.getInt(1)%>" value="<%=i+rs2.getInt(1)%>"/></td>
-   		<td><input type="text" disabled="true" id="<%=i+rs2.getString(2)%>" value="<%=rs2.getString(2)%>"/></td>
-   		<td><input type="text" disabled="true" id="<%=i+rs2.getString(3)%>" value="<%=rs2.getString(3)%>"/></td>
+		<td><input style="width:20px;" type="checkbox" name="selected" value='<%=rs2.getInt(1)%>'/></td>
+   		<td><input style="width:60px;" type="text" disabled="true" id="<%=i+rs2.getInt(1)%>" value="<%=i+rs2.getInt(1)%>"/></td>
+   		<td><input style="width:70px;" type="text" disabled="true" id="<%=i+rs2.getString(2)%>" value="<%=rs2.getString(2)%>"/></td>
+   		<td><input style="width:200px;" type="text" disabled="true" id="<%=i+rs2.getString(3)%>" value="<%=rs2.getString(3)%>"/></td>
    		<td><input type="button" onclick="fun1(this,'<%=i+rs2.getInt(1)%>','<%=i+rs2.getString(2)%>','<%=i+rs2.getString(3)%>');" value="EDIT"/></td>
 	</tr>
 <% 
 }
 %>
 </table>
+
+
 </div>
+
 </form>
 <%@ include file = "downbar.jsp" %>
 <script>

@@ -32,6 +32,7 @@
 	String option2 = request.getParameter("option2");
 	String option3 = request.getParameter("option3");
 	String option4 = request.getParameter("option4");
+	String option5 = request.getParameter("option5");
 	
 	try{
 		connection = DriverManager.getConnection(connectionUrl+database, userid, password);
@@ -51,7 +52,7 @@
 			maxid = 0;
 	
 		// Insert into the question table
-		sql = "insert into question values ('" + question + "','" + option1 + "','" + option2 + "','" + option3 + "','" + option4 + "'," + (maxid+1) + ")";		
+		sql = "insert into question values ('" + question + "','" + option1 + "','" + option2 + "','" + option3 + "','" + option4 + "',"  + "','" + option5 + "'," + (maxid+1) + ")";		
 		statement.executeUpdate(sql);
 		
 		// Insert into the temp_ques mapping

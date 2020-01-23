@@ -26,7 +26,7 @@
          <br>
          <br>
 </center>
-          <center><label>Division :&nbsp;</label><input id="div" type="number" placeholder="Division" name="div" min="1" max="12"></input><br><br></center>
+          <center><label>Division :&nbsp;</label><input id="div" type="number" placeholder="Division" name="div" min="1" max="20"></input><br><br></center>
 <center><label>Dept :&nbsp;</label><select name="dept">
 									<option value=""></option>
 									 <option value="CS">C.S.</option>
@@ -134,13 +134,13 @@ while(rs2.next())
 {
 %>
 	<tr>
-		<td><input type="checkbox" name="selected" value='<%=rs2.getString(1)%>#<%=rs2.getInt(2)%>'/></td>
-  		<td><input type="text" disabled="true" id="<%=i+rs2.getString(1)%>" value="<%=rs2.getString(1)%>"/></td>
-  		<td><input type="text" disabled="true" id="<%=i+rs2.getString(2)%>" value="<%=rs2.getString(2)%>"/></td>
-  		<td><input type="text" disabled="true" id="<%=i+rs2.getString(3)%>" value="<%=rs2.getString(3)%>"/></td>
-  		<td><input type="text" disabled="true" id="<%=i+rs2.getString(4)%>" value="<%=rs2.getString(4)%>"/></td>
-  		<td><input type="text" disabled="true" id="<%=i+rs2.getString(5)%>" value="<%=rs2.getString(5)%>"/></td>
-  		<td><input type="button" onclick="fun1(this,'<%=i+rs2.getString(1)%>','<%=i+rs2.getString(2)%>','<%=i+rs2.getString(3)%>','<%=i+rs2.getString(4)%>','<%=i+rs2.getString(5)%>')" value="EDIT"/></td>
+		<td><input style="width:70px;" type="checkbox" name="selected" value='<%=rs2.getString(1)%>#<%=rs2.getInt(2)%>'/></td>
+  		<td><input style="width:70px;" type="text" disabled="true" id="<%=i+rs2.getString(1)%>" value="<%=rs2.getString(1)%>"/></td>
+  		<td><input style="width:70px;" type="text" disabled="true" id="<%=i+rs2.getString(2)%>" value="<%=rs2.getString(2)%>"/></td>
+  		<td><input style="width:70px;" type="text" disabled="true" id="<%=i+rs2.getString(3)%>" value="<%=rs2.getString(3)%>"/></td>
+  		<td><input style="width:80px;" type="text" disabled="true" id="<%=i+rs2.getString(4)%>" value="<%=rs2.getString(4)%>"/></td>
+  		<td><input style="width:90px;" type="text" disabled="true" id="<%=i+rs2.getString(5)%>" value="<%=rs2.getString(5)%>"/></td>
+  		<td><input style="width:90px;" type="button" onclick="fun1(this,'<%=i+rs2.getString(1)%>','<%=i+rs2.getString(2)%>','<%=i+rs2.getString(3)%>','<%=i+rs2.getString(4)%>','<%=i+rs2.getString(5)%>')" value="EDIT"/></td>
   	</tr>
 <% 
 	i++;

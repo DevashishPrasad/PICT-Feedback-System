@@ -12,36 +12,11 @@
 <script>
 	var a = 3
 	var title_name = "Subject"
-
-	function check(){
-		 
-		 filename = $("#file").val();
-			
-		 if(filename.trim().length == 0){
-			 alert('Please Select The File To Upload Teachers Data');
-			 return false;
-		 }else{
-			return true;	 
-		 }
-		
-	}
 </script>
 <%@ include file = "navbar.jsp" %>
-
-	<div style="margin-left: 50%">
-	<form action="subject_upload.jsp" enctype="multipart/form-data"
-		method="post">
-
-		<input name="upload" id="file" type="file" accept=".xls, .xlsx">
-		<br>
-		<br>
-		<button type="submit" onclick="return check()">ADD</button>
-
-	</form>
-</div>
         <form action="subject.jsp" method="POST">
             Subject ID : <input type="number" id="subid" name="subjectID" placeholder="Enter the Subject ID" min="1"><br>
-            Subject Name : <input type="text" id="subname" name="subject" placeholder="Enter the Subject Name" pattern='[A-Za-z\\s]*'><br>
+            Subject Name : <input type="text" id="subname" name="subject" placeholder="Enter the Subject Name" pattern='[A-Z\_a-z\\s]*'><br>
             <input type="hidden" name="error" value="" />
             Domain : <select id="Area" name="domain">
 <%  
@@ -160,13 +135,13 @@
             while(result.next()){
             %>
             	<tr>
-	            	<td><input type="checkbox" name="selected" value='<%=result.getString("subject_ID")%>'/></td>
-		    		<td><input type="text" disabled="true" id="<%=i+result.getString("subject_ID")%>" value="<%=result.getString("subject_ID")%>"/></td>
-		    		<td><input type="text" disabled="true" id="<%=i+result.getString("subject_name")%>" value="<%=result.getString("subject_name")%>"/></td>
-		    		<td><input type="text" disabled="true" id="<%=i+result.getString("domain_name")%>" value="<%=result.getString("domain_name")%>"/></td>
-		    		<td><input type="text" disabled="true" id="<%=i+result.getString("dept_id")%>" value="<%=result.getString("dept_id")%>"/></td>
-		    		<td><input type="text" disabled="true" id="<%=i+result.getString("yr")%>" value="<%=result.getString("yr")%>"/></td>
-		    		<td><input type="button" onclick="fun1(this,'<%=i+result.getString("subject_ID")%>','<%=i+result.getString("subject_name")%>','<%=i+result.getString("domain_name")%>','<%=i+result.getString("dept_id")%>','<%=i+result.getString("yr")%>')" value="EDIT"/></td>
+	            	<td><input style="width:60px;" type="checkbox" name="selected" value='<%=result.getString("subject_ID")%>'/></td>
+		    		<td><input style="width:90px;" type="text" disabled="true" id="<%=i+result.getString("subject_ID")%>" value="<%=result.getString("subject_ID")%>"/></td>
+		    		<td><input style="width:100px;" type="text" disabled="true" id="<%=i+result.getString("subject_name")%>" value="<%=result.getString("subject_name")%>"/></td>
+		    		<td><input style="width:100px;" type="text" disabled="true" id="<%=i+result.getString("domain_name")%>" value="<%=result.getString("domain_name")%>"/></td>
+		    		<td><input style="width:80px;" type="text" disabled="true" id="<%=i+result.getString("dept_id")%>" value="<%=result.getString("dept_id")%>"/></td>
+		    		<td><input style="width:50px;" type="text" disabled="true" id="<%=i+result.getString("yr")%>" value="<%=result.getString("yr")%>"/></td>
+		    		<td><input style="width:80px;" type="button" onclick="fun1(this,'<%=i+result.getString("subject_ID")%>','<%=i+result.getString("subject_name")%>','<%=i+result.getString("domain_name")%>','<%=i+result.getString("dept_id")%>','<%=i+result.getString("yr")%>')" value="EDIT"/></td>
 	            <tr>
             <%
             i++;
