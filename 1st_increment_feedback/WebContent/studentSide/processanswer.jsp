@@ -27,9 +27,13 @@ Connection con = null;
 Class.forName("com.mysql.jdbc.Driver");
 con = DriverManager.getConnection(connectionUrl+database, userid, password);
 Statement st2=con.createStatement();
-System.out.print("--->"+request.getParameter("subid"));
-System.out.print("--->"+request.getParameter("cat"));
-ResultSet rs2 = st2.executeQuery("select qid from temp_ques where temp_id=(select temp_id from teacher_subject_template where tid="+request.getParameter("tid")+" and sid="+request.getParameter("subid")+" )");
+System.out.print(request.getParameter("subid"));
+String sid=request.getParameter("subid");
+String tid = request.getParameter("tid");
+String rid = request.getParameter("rid");
+st2.executeUpdate("update studcheck set fc=1 where sid="+sid+" and rollno="+rid+";");
+st2.executeUpdate("update student_cat set fc=1 where tid="+tid+" and sid="+sid+" and rollno="+rid+";");
+ResultSet rs2 = st2.executeQuery("select qid from temp_ques where temp_id in(select temp_id from teacher_subject_template where tid="+request.getParameter("tid")+" and sid="+request.getParameter("subid")+" )");
 for(int i=0;i < Integer.parseInt(request.getParameter("total"));i++)
 {
 	Statement st = con.createStatement();
@@ -41,5 +45,5 @@ for(int i=0;i < Integer.parseInt(request.getParameter("total"));i++)
 	
 	st.executeUpdate("update feedback set score=score+"+Integer.parseInt(request.getParameter(Integer.toString(i+1)))+"  where cat_id = "+request.getParameter("cat")+" and qid ="+val);
 }
-response.sendRedirect("index.jsp?uname=33319");
+response.sendRedirect("index.jsp?uname="+rid);
 %>

@@ -25,6 +25,7 @@
 	Statement statement = null;
 	ResultSet resultSet = null;
 	int rollno = Integer.parseInt(request.getParameter("uname"));
+	
 	int cat=0,total=0;
 	String teacher_id = request.getParameter("name");
 	String tname = request.getParameter("tname");
@@ -108,6 +109,8 @@
             		$('#questions').append('<div style="margin-bottom:100px; margin-left:30%;"><input type="hidden" name="cat" value="<%=cat%>"/></div>');
             		$('#questions').append('<div style="margin-bottom:100px; margin-left:30%;"><input type="hidden" name="subid" value="<%=subject_id%>"/></div>');
             		$('#questions').append('<div style="margin-bottom:100px; margin-left:30%;"><input type="hidden" name="tid" value="<%=teacher_id%>"/></div>');
+            		$('#questions').append('<div style="margin-bottom:100px; margin-left:30%;"><input type="hidden" name="rid" value="<%=rollno%>"/></div>');
+           		
            		}
             		
             	
@@ -120,10 +123,32 @@
             	if(no<=<%=rs.getString("num_ques")%>){
             		
             		$('#ques'+no).append('<p>'+no+'. <%=rs2.getString("question")%></p>');
-            		$('#ques'+no).append('<p><input type="radio" value="40" name = "'+no+'"/><%=rs2.getString("option1")%></p>');
-            		$('#ques'+no).append('<p><input type="radio" value="30" name = "'+no+'"/><%=rs2.getString("option2")%></p>');
-            		$('#ques'+no).append('<p><input type="radio" value="20" name = "'+no+'"/><%=rs2.getString("option3")%></p>');
-            		$('#ques'+no).append('<p><input type="radio" value="10" name = "'+no+'"/><%=rs2.getString("option4")%></p>');
+            		if('<%=rs2.getString("option5")%>' == null)
+            		{
+            			$('#ques'+no).append('<input type="radio" value="40" name = "'+no+'"/><%=rs2.getString("option1")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+                		$('#ques'+no).append('<input type="radio" value="30" name = "'+no+'"/><%=rs2.getString("option2")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+                		$('#ques'+no).append('<input type="radio" value="20" name = "'+no+'"/><%=rs2.getString("option3")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+                		$('#ques'+no).append('<input type="radio" value="10" name = "'+no+'"/><%=rs2.getString("option4")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+            		}
+            		else if('<%=rs2.getString("option4")%>' == null)
+            		{
+            			$('#ques'+no).append('<input type="radio" value="40" name = "'+no+'"/><%=rs2.getString("option1")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+                		$('#ques'+no).append('<input type="radio" value="30" name = "'+no+'"/><%=rs2.getString("option2")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+                		$('#ques'+no).append('<input type="radio" value="20" name = "'+no+'"/><%=rs2.getString("option3")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+            		}
+            		else if('<%=rs2.getString("option3")%>' == null)
+            		{
+            			$('#ques'+no).append('<input type="radio" value="40" name = "'+no+'"/><%=rs2.getString("option1")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+                		$('#ques'+no).append('<input type="radio" value="30" name = "'+no+'"/><%=rs2.getString("option2")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+            		}
+            		else
+           			{
+            			$('#ques'+no).append('<input type="radio" value="40" name = "'+no+'"/><%=rs2.getString("option1")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+                		$('#ques'+no).append('<input type="radio" value="30" name = "'+no+'"/><%=rs2.getString("option2")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+                		$('#ques'+no).append('<input type="radio" value="20" name = "'+no+'"/><%=rs2.getString("option3")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+                		$('#ques'+no).append('<input type="radio" value="10" name = "'+no+'"/><%=rs2.getString("option4")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+                		$('#ques'+no).append('<input type="radio" value="0" name = "'+no+'"/><%=rs2.getString("option5")%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp');
+           			}
             	}
             	no++;
             		
@@ -249,32 +274,61 @@
 						   			<ul>
 						   				<%
 						   					ResultSet rs = null;
+						   					ResultSet rs1 = null;
+						   					ResultSet rs2 = null;
 						   					Statement statement1=con.createStatement();
-						   					if(t_name =="LTL")
+						   					Statement statement2=con.createStatement();
+						   					System.out.println(t_name);
+						   					if(t_name.equals("LTL"))
 						   					{
+						   						System.out.print("1111HEY");
 						   						rs = statement1.executeQuery("select * from student_cat join teachers on tid=id join subject on sid=subject_id where rollno='"+rollno+"' and domain_name='"+t_name+"'");
 						   						while(rs.next()){
 									    			String name = rs.getString("name");
 									    			String sub = rs.getString("subject_name");
 									    			String tid = rs.getString("tid");
 									    			String subid = rs.getString("subject_id");
-									    			
+									    			if(rs.getInt("fc")==1)
+									    			{
 												%>
-													<li class="nav-item"><a href="index.jsp?name=<%=tid%>&sub=<%=subid%>&flag=1" ><i class="ft-home"></i><span class="menu-title" data-i18n=""><%=name %>_<%=sub %></span></a></li>
+												<li class="nav-item"><a style="color: currentColor; cursor: not-allowed; opacity: 0.5;text-decoration: none;"><i class="ft-home"></i><span class="menu-title" data-i18n=""><%=name %>_<%=sub %></span></a></li>
+													<%
+									    			}
+													else
+													{
+													%><li class="nav-item"><a href="index.jsp?name=<%=tid%>&sub=<%=subid%>&flag=1&tname=<%=name %>&sname=<%=sub %>&uname=<%=rollno %>" ><i class="ft-home"></i><span class="menu-title" data-i18n=""><%=name %>_<%=sub %></span></a></li>
 												<%}
+						   						}
 						   					}
-						   					else 
+						   					else
 						   					{
+						   						System.out.print("HEYoooo");
 						   						rs = statement1.executeQuery("select * from teacher_class_subject join teachers on tid=id join subject on sid=subject_id where cid_year in (select year from student where rollno='"+rollno+"') and cid_div in (select division from student where rollno='"+rollno+"') and domain_name='"+t_name+"'");
 								   				while(rs.next()){
 									    			String name = rs.getString("name");
 									    			String sub = rs.getString("subject_name");
 									    			String tid = rs.getString("tid");
 									    			String subid = rs.getString("sid");
-									    			
-												%>
-													<li class="nav-item"><a href="index.jsp?name=<%=tid%>&sub=<%=subid%>&flag=1&tname=<%=name %>&sname=<%=sub %>&uname=<%=rollno %>" ><i class="ft-home"></i><span class="menu-title" data-i18n=""><%=name %>_<%=sub %></span></a></li>
-												<%} 
+									    			System.out.println(subid+"  "+tid);
+									    			rs2 = statement2.executeQuery("select * from studcheck where sid="+subid+" and rollno="+rollno+";");
+														while(rs2.next())								    			
+									    			if(rs2.getInt("fc")==1)
+									    			{
+				
+									    				%>
+							
+														<li class="nav-item"><a style="color: currentColor; cursor: not-allowed; opacity: 0.5;text-decoration: none;"  ><i class="ft-home"></i><span class="menu-title" data-i18n=""><%=name %>_<%=sub %></span></a></li>
+														<%
+									    			}
+									    			else
+									    			{
+									    				%>
+														
+														<li class="nav-item"><a href="index.jsp?name=<%=tid%>&sub=<%=subid%>&flag=1&tname=<%=name %>&sname=<%=sub %>&uname=<%=rollno %>" ><i class="ft-home"></i><span class="menu-title" data-i18n=""><%=name %>_<%=sub %></span></a></li>
+														<%
+						    				
+									    			}
+									    		} 
 						   					}
 												%>
 															
@@ -296,7 +350,8 @@
 </div>
 
     <!-- /////////////////////////////////////////////////////////////////////////////-->
-   	<form action ="processanswer.jsp" accept-charset=utf-8  id ="questions"></form>
+   	<form action ="processanswer.jsp" accept-charset=utf-8  id ="questions">
+   	</form>
     <!-- BEGIN VENDOR JS-->
     <script src="theme-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
     <!-- BEGIN VENDOR JS-->
