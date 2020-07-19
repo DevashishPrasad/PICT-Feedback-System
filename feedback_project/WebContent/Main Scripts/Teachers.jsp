@@ -37,7 +37,7 @@
 <div>
 <div>
 <label>Teacher Name :&nbsp;</label>
-<input id="name" type="text" placeholder="Teacher Name" name="name" pattern="^[a-zA-Z\s\.]+$">
+<input id="name" type="text" placeholder="Teacher Name" name="name" pattern="^[a-zA-Z\s\.]+$" required>
 <br>
 <br>
 	<label>Teacher DEPT :&nbsp;</label>

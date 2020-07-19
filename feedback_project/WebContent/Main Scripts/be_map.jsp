@@ -17,12 +17,12 @@ ResultSet result = null;
 
 <script>
 	var a = 7
-	var title_name = "Student Teacher Mapping"
+	var title_name = "BE Student Teacher Mapping"
 </script>
 <%@ include file = "navbar.jsp" %>
 <form  action="/1st_increment_feedback/Main Scripts/be_map.jsp" method="POST" name="myform">
        <br>
-       <h3>Division</h3>
+       Division: 
        <select name="div" id="sel_div" onchange="document.forms['myform'].submit();">
        	   <option value=" "> </option>
            <%
@@ -34,11 +34,12 @@ ResultSet result = null;
                <option value="<%=yr.getString("division")%>"><%=yr.getString("division")%></option>
                
           <%
-          	}
+           }
+           
           %>
                
        </select> 
-           
+       Domain:    
        <select name="dom" id="sel_dom" onchange="document.forms['myform'].submit();">
        	   <option value=" "> </option>
            <%
@@ -55,7 +56,7 @@ ResultSet result = null;
        </select> 
 
        </form>
-
+        <br>
        <h3>MAPPING</h3>
 
 
@@ -116,6 +117,7 @@ ResultSet result = null;
              <button class="btn">SUBMIT</button>
          </form>
      <%
+     	try{
      		String ran1 = "select ran1 from class where year='BE' and division = " + div;
      		ResultSet rss = st.executeQuery(ran1);
      		if(rss.next())
@@ -132,7 +134,9 @@ ResultSet result = null;
      		
      		System.out.println(ran1+" "+ran2);
      		String selectQuery = "select * from student_cat where rollno >= " + ran1 + " and rollno <= " + ran2 ;
-            rss = st.executeQuery(selectQuery); %>
+            rss = st.executeQuery(selectQuery); 
+
+     %>
                             
 <!--            Result Table   -->
             <br>
@@ -160,6 +164,10 @@ ResultSet result = null;
                         }
                         conn.close();
                         std.close();
+				        }
+				 catch(Exception e){
+					response.sendRedirect("be_map.jsp");
+				 }
                         %>
                     </tbody>
                 </table>

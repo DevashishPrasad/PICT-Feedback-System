@@ -16,7 +16,7 @@
 
 <center>
 		<label>YEAR OF ENGINEERING :</label>
-        <select name=year>
+        <select required name=year>
 	        <option value=""></option>
 	        <option value="FE">FE</option>
 	        <option value="SE">SE</option>
@@ -27,7 +27,7 @@
          <br>
 </center>
           <center><label>Division :&nbsp;</label><input id="div" type="number" placeholder="Division" name="div" min="1" max="20"></input><br><br></center>
-<center><label>Dept :&nbsp;</label><select name="dept">
+<center><label>Dept :&nbsp;</label><select required name="dept">
 									<option value=""></option>
 									 <option value="CS">C.S.</option>
           							<option value="IT">I.T.</option>
@@ -35,8 +35,8 @@
 									<option value="AS">A.S.</option>
 
 </select><br><br></center>
-<center><label>RANGE :&nbsp;</label><input id="range1" type="number" placeholder="RANGE OF STUDENTS" name="ran1" min="1"></input>&nbsp;TO <input id="range2" type="number" placeholder="RANGE OF STUDENTS" name="ran2" min="1"></input><br><br></center>
-<center><input type="submit" class="btn" name="ADD1" value="ADD"></input></center>
+<center><label>RANGE :&nbsp;</label><input id="range1" type="number" required placeholder="RANGE OF STUDENTS" name="ran1" min="1"></input>&nbsp;TO <input id="range2" type="number" placeholder="RANGE OF STUDENTS" name="ran2" min="1"></input><br><br></center>
+<center><input required type="submit" class="btn" name="ADD1" value="ADD"></input></center>
 
 </form>
 
@@ -72,17 +72,25 @@ try
 {
 	if((year !="") && (division !=null) && (dept !="") && ((Integer.parseInt(range1))<(Integer.parseInt(range2))) && (s!=null))
 	{
-		//trigger1
-		st1.executeUpdate("insert into class values('"+year+"',"+division+",'"+dept+"',"+range1+","+range2+")");
-		
-		for(int v=Integer.parseInt(range1); v<=Integer.parseInt(range2); v++){
-			st1.executeUpdate("insert into student(rollno, year, division) values("+v+",'"+year+"',"+division+")"); 	
+
+		try{
+			st1.executeUpdate("insert into class values('"+year+"',"+division+",'"+dept+"',"+range1+","+range2+")");
+			//trigger1
+			for(int v=Integer.parseInt(range1); v<=Integer.parseInt(range2); v++){
+				st1.executeUpdate("insert into student(rollno, year, division) values("+v+",'"+year+"',"+division+")"); 	
+			}			
+			out.println("CLASS ADDED");
+			%>
+		    <p style="color:#0000FF"><%out.println("CLASS ADDED");%></p>
+		    <%
 		}
-		
-		out.println("CLASS ADDED");
-		%>
-	    <p style="color:#0000FF"><%out.println("CLASS ADDED");%></p>
-	    <%	          
+		catch(SQLException e){
+			st2.executeUpdate("delete from student where year='"+year+"' and division="+division+";");
+			st2.executeUpdate("delete from class where division="+division+";");
+			%>
+		    <p style="color:#FF0000"><%out.print("INVALID RollNo Range "+e.getMessage());%></p>
+		    <%			
+		}
 	}
 	
 	else if((year!="")&&(division!=null)&&(dept!="")&&(range1!=null)&&(d!=null))
@@ -96,7 +104,7 @@ try
 	}
 	
 }
-catch(SQLException e)
+catch(Exception e)
 {
 	%>
     <p style="color:#FF0000"><%out.print("INVALID INPUT! "+e.getMessage());%></p>

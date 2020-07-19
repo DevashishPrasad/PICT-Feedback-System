@@ -39,12 +39,12 @@ session.setAttribute("select_teacher",teacher);
 
 <script>
 	var a = 9
-	var title_name = "Teacher Subject Class Mapping"
+	var title_name = "Report"
 </script>
 <%@ include file = "navbar.jsp" %>
 <form method="post" action="#" name='myform' id="tsc" >
 <label>Select Year</label>
-<select name="select_year" id="select_year" onchange="document.forms['myform'].submit();">
+<select required name="select_year" id="select_year" onchange="document.forms['myform'].submit();">
 <option> </option>
 <%
 try{
@@ -67,7 +67,7 @@ try{
 
       </select>
       <label>Select Division</label>
-<select name="select_div" id="select_div" onchange="document.forms['myform'].submit();">
+<select required name="select_div" id="select_div" onchange="document.forms['myform'].submit();">
 <%
 try{
     connection = DriverManager.getConnection(connectionUrl+database, userid, password);
@@ -90,7 +90,7 @@ try{
       </select>
 
 <label>Select teacher</label>
-<select name="select_teacher" id="select_teacher" onchange="document.forms['myform'].submit();">
+<select required name="select_teacher" id="select_teacher" onchange="document.forms['myform'].submit();">
 <%
 try{
     connection = DriverManager.getConnection(connectionUrl+database, userid, password);
@@ -115,7 +115,7 @@ try{
 </form>
 <form action="process_report.jsp" target="_blank">     
       <label>Select subject</label>
-	<select name="select_subject" >
+	<select required name="select_subject" >
 <%
 try{
     connection = DriverManager.getConnection(connectionUrl+database, userid, password);
@@ -127,7 +127,7 @@ try{
     while(resultSet.next()){
     String t_name = subject =resultSet.getString("subject_name");
 %>
-  <option value="<%= resultSet.getString("subject_id") %>"><%=t_name %></option>    
+  <option  value="<%= resultSet.getString("subject_id") %>"><%=t_name %></option>    
 <%
   }
     connection.close();

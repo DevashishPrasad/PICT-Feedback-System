@@ -42,13 +42,10 @@
 <%@ include file = "navbar.jsp" %>
 	<form action="template.jsp" method="post">
 		<br>
-		<input name="temp_name" type="text" />
-		<br>
+		Name of template : <input name="temp_name" type="text" />
+		<input type="submit" class="btn" name="add" value="Add"/>
 		<input type="submit" class="btn" name="single" value="Search template"/>
 		<input type="hidden" name="error" value="" />
-		<br>
-		<br>
-		<input type="submit" class="btn" name="add" value="Add"/>
 	</form>
 	<br>
 	<form action="#" method=post>

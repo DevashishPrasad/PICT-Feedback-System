@@ -38,10 +38,11 @@
 
 <div class="col">
         <form action="subject.jsp" method="POST">
-            Subject ID : <input type="number" id="subid" name="subjectID" placeholder="Enter the Subject ID" min="1"><br>
-            Subject Name : <input type="text" id="subname" name="subject" placeholder="Enter the Subject Name" pattern='[A-Z\_a-z\\s]*'><br>
-            <input type="hidden" name="error" value="" />
-            Domain : <select id="Area" name="domain">
+        	<table>
+        		<tr><td>Subject ID </td><td><input type="number" id="subid" name="subjectID" placeholder="Enter the Subject ID" min="1"></td></tr>
+	            <tr><td>Subject Name </td><td><input type="text" id="subname" name="subject" placeholder="Enter the Subject Name" pattern='[A-Z\_a-z\\s]*'></td></tr>
+	            <tr><td><input type="hidden" name="error" value="" /></td>
+	            <tr><td>Domain </td><td><select id="Area" name="domain">
 <%  
     try{
         ResultSet result = null;
@@ -54,8 +55,8 @@
         }
    
 %>
-            </select><br>
-          Department:  <select id="asd" name="dept">
+            </select></td></tr>
+          <tr><td>Department</td> <td><select id="asd" name="dept">
               <%  
   
         ResultSet result2 = null;
@@ -68,9 +69,9 @@
         }
    
 %>
-            </select>        
+            </select></td></tr>        
             <br>
-		Year : <select id="asd" name="year">
+		<tr><td>Year </td><td><select id="asd" name="year">
         <%
       
        yr = st.executeQuery("select distinct year from class");
@@ -80,9 +81,9 @@
            <option value="<%=yr.getString("year")%>"><%=yr.getString("year")%></option>
            <%}%>
            
-       </select>  
-       <br>
-             <br>
+       </select></td></tr>  
+    </table>
+    <br>
     <input type="submit" value="ADD" id="add1" class="btn" name="addclick">
     </form>
     <%  

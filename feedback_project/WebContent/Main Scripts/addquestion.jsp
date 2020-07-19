@@ -102,18 +102,19 @@
 	<div class="col">	
      <form action="processques.jsp" method="post">
 		<label>Enter the Question</label>
-		<input name="question" type="text" /><br>
+		<input size="60" pattern="^[a-zA-Z\s\.]+$" name="question" placeholder="Enter the Question" type="text" required/><br>
 		<label>Option 1 (50 marks)</label>
-		<input name="option1" type="text" /><br>
+		<input size="60" pattern="^[a-zA-Z\s\.]+$" name="option1" placeholder="option 1" type="text" required/><br>
 		<label>Option 2 (40 marks)</label>
-		<input name="option2" type="text" /><br>
+		<input size="60" pattern="^[a-zA-Z\s\.]+$" name="option2" placeholder="option 2" type="text" required/><br>
 		<label>Option 3 (30 marks)</label>
-		<input name="option3" type="text" /><br>
+		<input size="60" pattern="^[a-zA-Z\s\.]+$" name="option3" placeholder="option 3" type="text" required/><br>
 		<label>Option 4 (20 marks)</label>
-		<input name="option4" type="text" /><br>
+		<input size="60" pattern="^[a-zA-Z\s\.]+$" name="option4" placeholder="option 4" type="text" required/><br>
 		<label>Option 5 (10 marks)</label>
-		<input name="option4" type="text" /><br>
+		<input size="60" pattern="^[a-zA-Z\s\.]+$" name="option5" placeholder="option 5" type="text" required/><br>
 		<input type="hidden" name="temp_name" value="<%= temp_name %>">  
+			<br>
 		<input type="submit" class="btn" id="add1" name="single" value="Add Question"/> 
 	</form>
 	</div>
@@ -135,6 +136,8 @@
 	</div>
 	</div>
     <form action="#" method=post>
+	<br>
+
 	<input type="submit" class="btn" id="del" name="delete" value="Delete"/>
 		<%
 			if (request.getParameter("delete") != null) {
@@ -145,7 +148,7 @@
 				obj.questiondel(arr, database);
 			}
 		%>
-
+	<br>
 	<div class="table-responsive">
 		<table class="table" style="width:400px;">
 	        <tr>
@@ -173,7 +176,7 @@
 		  		 <td><input style="width:80px;" type="text" disabled="true" id="<%=i+resultSet.getString("option3")%>" value="<%=resultSet.getString("option3")%>"/></td>
 		  		 <td><input style="width:80px;" type="text" disabled="true" id="<%=i+resultSet.getString("option4")%>" value="<%=resultSet.getString("option4")%>"/></td>
 		  		 <td><input style="width:80px;" type="text" disabled="true" id="<%=i+resultSet.getString("option5")%>" value="<%=resultSet.getString("option5")%>"/></td>
-		  		 <td><input style="width:80px;" type="button" class="btn" onclick="fun1(this,'<%=i+resultSet.getString("qid")%>','<%=i+resultSet.getString("question")%>','<%=i+resultSet.getString("option1")%>','<%=i+resultSet.getString("option2")%>','<%=i+resultSet.getString("option3")%>','<%=i+resultSet.getString("option4")%>')" value="EDIT"/></td>
+		  		 <td><input style="width:80px;" type="button" class="btn" onclick="fun1(this,'<%=i+resultSet.getString("qid")%>','<%=i+resultSet.getString("question")%>','<%=i+resultSet.getString("option1")%>','<%=i+resultSet.getString("option2")%>','<%=i+resultSet.getString("option3")%>','<%=i+resultSet.getString("option4")%>','<%=i+resultSet.getString("option5")%>')" value="EDIT"/></td>
 		  	 </tr>
 			<%
 			i++;
@@ -199,15 +202,16 @@
 var prev = []
 var oqid = null
 
-function fun1(el,el_id1,el_id2,el_id3,el_id4,el_id5,el_id6){
+function fun1(el,el_id1,el_id2,el_id3,el_id4,el_id5,el_id6,el_id7){
 	if(el.value == "UPDATE"){
 		var qname = document.getElementById(el_id2).value
 		var op1 = document.getElementById(el_id3).value
 		var op2 = document.getElementById(el_id4).value
 		var op3 = document.getElementById(el_id5).value
-		var op4 = document.getElementById(el_id5).value
+		var op4 = document.getElementById(el_id6).value
+		var op5 = document.getElementById(el_id7).value
 		
-		var urlstr = "edits/questionEdit.jsp?oqid="+ oqid +"&qname="+ qname+"&op1="+ op1+"&op2="+ op2+"&op3="+ op3+"&op4="+ op4
+		var urlstr = "edits/questionEdit.jsp?oqid="+ oqid +"&qname="+ qname+"&op1="+ op1+"&op2="+ op2+"&op3="+ op3+"&op4="+ op4+"&op5="+op5
 		window.location.replace(urlstr)
 		el.value = 'EDIT'
 		
@@ -219,6 +223,7 @@ function fun1(el,el_id1,el_id2,el_id3,el_id4,el_id5,el_id6){
 			for(var i; i < prev.length; i++)
 				prev[i].disabled = true	
 		}
+		
 		oqid = document.getElementById(el_id1).value
 	
 		var cur = []
@@ -228,6 +233,8 @@ function fun1(el,el_id1,el_id2,el_id3,el_id4,el_id5,el_id6){
 		cur.push(document.getElementById(el_id4))
 		cur.push(document.getElementById(el_id5))
 		cur.push(document.getElementById(el_id6))
+		cur.push(document.getElementById(el_id7))
+		
 
 		for(var i=0; i < cur.length; i++){
 			cur[i].disabled = false

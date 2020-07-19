@@ -15,21 +15,21 @@
 		<div class="col-lg-4 col-md-12">
 			<div class="card">
 				<div class="card-body">
-					<a href="ltl_map.jsp">LTL Mapping</a>
+					<a href="ltl_map.jsp"><button class="btn"> LTL Mapping</button></a> 
 				</div>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-12">
 			<div class="card">
 				<div class="card-body">
-					<a href="be_map.jsp">BE Mapping</a>
+					<a href="be_map.jsp"><button class="btn"> BE Mapping</button></a>
 				</div>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-12">
 			<div class="card">
 				<div class="card-body">
-					<a href="show_map.jsp">Show Mappings</a>
+					<a href="show_map.jsp"><button class="btn">Show LTL Mappings</button></a>
 				</div>
 			</div>
 		</div>

@@ -18,8 +18,8 @@ String division=null;
 Class.forName("com.mysql.jdbc.Driver");
 String database = (String)session.getAttribute("curdb");
 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+database,"Deva","dev123456");
-year=request.getParameter("year");
-division=request.getParameter("div");
+year=request.getParameter("my_year");
+division=request.getParameter("my_div");
 Statement st1 = con.createStatement();
 ResultSet rs2;
 if(request.getParameter("error")!=null)
@@ -30,42 +30,38 @@ if(request.getParameter("error")!=null)
 }
 try
 {
-	if(request.getParameter("genpass")!=null)
+	if((year !="") && (division !=null) )
 	{
-		if((year !="") && (division !=null) )
-		{
-			rs2 = st1.executeQuery("select rollno,pass from student where year='"+year+"' and division='"+division+"'");	          
-		
-				%>
-			<form action="#" method=post>
-				
-			<div class="table-responsive">
-			<table class="table">
-			<tr>
-			<th>Roll no</th>   
-			<th>Password</th>
-			</tr>
+		rs2 = st1.executeQuery("select rollno,pass from student where year='"+year+"' and division='"+division+"'");	          
+		System.out.println(year);
+		System.out.println(division);
+			%>
 			
-			<% 
-			out.println("\n");
-			int i = 0;
-			while(rs2.next())
-			{
-			%>
-			<tr>
-				<td><%=rs2.getString(1)%></td>
-				<td><%=rs2.getString(2)%></td>
-			</tr>
-			<% 
-			i++;
-			}
-			%>
-			</center>
-			</table>
-			</div>
-			</form>
-			<%
+		<div class="table-responsive">
+		<table class="table">
+		<tr>
+		<th>Roll no</th>   
+		<th>Password</th>
+		</tr>
+		
+		<% 
+		out.println("\n");
+		int i = 0;
+		while(rs2.next())
+		{
+		%>
+		<tr>
+			<td><%=rs2.getString(1)%></td>
+			<td><%=rs2.getString(2)%></td>
+		</tr>
+		<% 
+		i++;
 		}
+		%>
+		</center>
+		</table>
+		</div>
+		<%
 	}
 }
 catch(SQLException e)

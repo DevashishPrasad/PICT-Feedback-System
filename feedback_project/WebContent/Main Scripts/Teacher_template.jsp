@@ -68,7 +68,6 @@
 		%>
 		
       	</select>
-      	<br>
       	<label>Dept</label>
 		<select name="sel_dept" id="sel_dept" onchange="document.forms['myform'].submit();">
 		<%
@@ -118,7 +117,6 @@
 	    		}
 		%>
       	</select>
-      	<br>
       	<label>Template</label>
       	<select name="sel_temp" id="sel_temp">
 		<%
@@ -142,6 +140,7 @@
       	</select>
       	<input type="submit"  class="btn" value="map"/>
      </form>
+	 <br>
      <form action="#" method=post>
      <input type="submit" class="btn" name="delete" value="delete">
      <%

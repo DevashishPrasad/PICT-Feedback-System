@@ -113,7 +113,7 @@ function genpass(){
 
 </script>
 	
-<%
+<%-- <%
 st2 = con.createStatement();
 
 String selectQuery = "select * from student order by rollno";
@@ -144,14 +144,17 @@ rs = st2.executeQuery(selectQuery);
 </table>
 </div>
 </form>
-<br/>
+<br/>--%>
+
 <%
 con.close();
 }
 catch(Exception e)
 {
-e.printStackTrace();
+	e.printStackTrace();
+	response.sendRedirect("ins.jsp?status=ERROR! "+e.getMessage());
 }
+response.sendRedirect("ins.jsp?status=Password generated!");
 %>
 
 </html>

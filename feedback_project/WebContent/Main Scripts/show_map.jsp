@@ -65,7 +65,7 @@
 	   		<table class="table">
                     <thead>
                         <tr>
-                        	<th> Delete </th>
+                        	
                             <th>Roll No</th>
                             <th>Sub Id</th>
                             <th>Teacher Id</th>
@@ -77,7 +77,7 @@
                         { 
                         %>
                         <tr>
-                        	<td><input type="checkbox" name="selected" value='<%= result.getString("rollno") %>-<%= result.getString("tid") %>-<%= result.getString("sid") %>'/></td>
+                        	
                             <td><%=result.getInt("rollno")%></td>
                             <td><%=result.getString("tname")%></td>
                             <td><%=result.getString("sname")%></td>

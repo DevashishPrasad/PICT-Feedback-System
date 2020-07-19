@@ -139,20 +139,12 @@ try{
     String year1=request.getParameter("select_year"),div1=request.getParameter("select_div"),tid=request.getParameter("select_teacher"),sid=request.getParameter("select_subject");
     if(s!=null)
     {
-       	sql="select ran1,ran2 from class where year='"+year1+"' and division="+div1+";"; 
-        resultSet = statement.executeQuery(sql);
-        resultSet.next();	
-       	String ran1 = resultSet.getString("ran1");
-      	  	String ran2 = resultSet.getString("ran2");
-      	  	System.out.println("IDHAR ARA HAI");
-     	  	for(int v=Integer.parseInt(ran1); v<=Integer.parseInt(ran2); v++){
-     	  		statement.executeUpdate("insert into studcheck(rollno,year,division,sid) values("+v+",'"+year1+"',"+div1+","+sid+");"); 	
-		}
+       
       	System.out.println("For ke bahar aya");
     	  	  	
         System.out.println("Done With Sameer Section");
   	  	
-	    String checkQuery = "select * from teacher_class_subject where cid_year='"+year1+"' and cid_div="+div1+" and sid = "+sid+";";
+	    String checkQuery = "select * from teacher_class_subject where tid='"+tid+"' and cid_year='"+year1+"' and cid_div="+div1+" and sid = "+sid+";";
     	Statement stCheck = connection.createStatement();
     	ResultSet rs = stCheck.executeQuery(checkQuery);
     	
@@ -163,9 +155,18 @@ try{
     		    <p style="color:#0000FF"><%out.println("Already Mapped");%></p>
     		 <% 	
     	}else{
-    		 sql = "insert into teacher_class_subject values(null,'"+tid+"','"+year1+"','"+div1+"','"+sid+"')";
+    		sql = "insert into teacher_class_subject values(null,'"+tid+"','"+year1+"','"+div1+"','"+sid+"')";
    	        statement.executeUpdate(sql);
-   	        %>
+		
+   	        sql="select ran1,ran2 from class where year='"+year1+"' and division="+div1+";"; 
+        	resultSet = statement.executeQuery(sql);
+        	resultSet.next();	
+       		String ran1 = resultSet.getString("ran1");
+      	  	String ran2 = resultSet.getString("ran2");
+      	  	for(int v=Integer.parseInt(ran1); v<=Integer.parseInt(ran2); v++){
+     	  		statement.executeUpdate("insert into studcheck(rollno,year,division,sid) values("+v+",'"+year1+"',"+div1+","+sid+");"); 	
+		}
+		%>
    		    <p style="color:#0000FF"><%out.println("MAPPING ADDED");%></p>
    		    <%	
     	}
@@ -188,6 +189,7 @@ try{
 					String[] arr=(String[])request.getParameterValues("selected");
 					String [] arrOfStr = arr[0].split("#",4);
 					statement.executeUpdate("delete from student_cat where tid=(select tid from teachers where name='" + arrOfStr[0] +"') and sid = (select sid from subject where subject_name='" + arrOfStr[1] +"') and rollno in (select rollno from student where division="+arrOfStr[3]+" and year='"+ arrOfStr[2] +"');");
+					statement.executeUpdate("delete from studcheck where sid = (select sid from subject where subject_name='" + arrOfStr[1] +"') and rollno in (select rollno from student where division="+arrOfStr[3]+" and year='"+ arrOfStr[2] +"');");
 					obj.tcsdel(arr, database);
 				}
 				catch(Exception e){

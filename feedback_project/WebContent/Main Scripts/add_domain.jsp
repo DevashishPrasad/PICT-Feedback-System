@@ -9,16 +9,9 @@
 </script>
 <%@ include file = "navbar.jsp" %>
         <form method="post" action="add_domain.jsp">
-            <table>
-                <tr>
-                    <td>Name :</td>
-                    <td><input type="text" name="name" pattern='[A-Za-z\\s]*' /></td>
-                </tr>               
-                <tr>
-                    <td><input type="submit" class="btn" name = "add_but" value="ADD" /></td>       
+                    Name : <input type="text" required name="name" pattern='[A-Za-z\\s]*' />
+                    <input type="submit" class="btn" name = "add_but" value="ADD" />       
                     <input type="hidden" name="error" value="" />          
-                </tr>
-            </table>
         </form> 
                 <br>
         <form action="#" method=post>

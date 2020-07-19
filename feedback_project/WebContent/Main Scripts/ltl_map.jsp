@@ -37,8 +37,8 @@ ResultSet result = null;
 
 <%@ include file = "navbar.jsp" %>
 <form  action="/1st_increment_feedback/Main Scripts/ltl_map.jsp" method="POST" name="myform">
-    <h3>YEAR</h3>
-    <select name="year" id="sel_year" onchange="document.forms['myform'].submit();">
+    <label>Year</label>
+    <select required name="year" id="sel_year" onchange="document.forms['myform'].submit();">
     	<option value=" "> </option>
         
        <% 
@@ -53,9 +53,9 @@ ResultSet result = null;
       <%}%>
            
        </select>  
-       <br>
-       <h3>Division</h3>
-       <select name="div" id="sel_div" onchange="document.forms['myform'].submit();">
+
+      <label>Division</label>
+       <select required name="div" id="sel_div" onchange="document.forms['myform'].submit();">
        	   <option value=" "> </option>
            <%
 	        // Take Class
@@ -70,11 +70,11 @@ ResultSet result = null;
        </select> 
        <br>
 
-		<label>Size of batch : </label>
-		<input type="text" name="size"/>
-		<input type="submit" value="make batches"/>
+		<label>Size of batch </label>
+		<input type="number" name="size"/>
+		<input type="submit" class="btn" value="make batches"/>
        </form>
-
+        <br>
        <h3>MAPPING</h3>
 
        <form action="ltl_process.jsp" method="POST">
@@ -132,7 +132,7 @@ ResultSet result = null;
                      
         </tbody>
     </table>
-    <button>SUBMIT</button>
+    <button class="btn">SUBMIT</button>
     
     <%
     	if(error != ""){
