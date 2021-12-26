@@ -39,5 +39,6 @@ to download.
 * Any web browser on user side for accessing the internet
 
 ## Getting Started
-main folder : JSP Eclipse project sql file : Mysql Database file
+main folder : JSP Eclipse project <br>
+sql file : Mysql Database file <br>
 Just download the code, import in eclipse, create database in MySql and source from sql file.
